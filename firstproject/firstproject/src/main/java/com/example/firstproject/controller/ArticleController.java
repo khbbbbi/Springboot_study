@@ -38,7 +38,7 @@ public class ArticleController {
         //System.out.println(saved.toString());
         log.info(saved.toString());
 
-        return "";
+        return "redirect:/articles/" + saved.getId();
     }
 
     @GetMapping("/articles/{id}") //url입력 받아옴.
@@ -55,14 +55,15 @@ public class ArticleController {
         return "articles/show";
     }
 
-    @GetMapping("/articels")
-    public String index(){
+    @GetMapping("/articles")
+    public String index(Model model){
         //1: 모든 Article을 가져온다!
         List<Article> articleEntityList = articleRepository.findAll();
 
         //2: 가져온 Article 묶음을 뷰로 전달!
+        model.addAttribute("articleList", articleEntityList);
 
         //3: 뷰 페이지를 설정!
-        return "";
+        return "articles/index";    //articles/index.mustache
     }
 }
